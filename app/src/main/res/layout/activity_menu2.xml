@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.activity.Menu2Activity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
+        <Button
+            android:id="@+id/button5"
+            android:layout_width="270dp"
+            android:layout_height="66dp"
+            android:text="口外"
+            tools:ignore="MissingConstraints"
+            android:background="#64AAD0"
+            android:textColor="#fff"
+            android:layout_margin="18dp"/>
+
+        <Button
+            android:id="@+id/button6"
+            android:layout_width="270dp"
+            android:layout_height="66dp"
+            android:text="牙周"
+            tools:ignore="MissingConstraints"
+            android:background="#238b49"
+            android:layout_margin="18dp"
+            android:textColor="#fff"/>
+
+        <Button
+            android:id="@+id/button7"
+            android:layout_width="270dp"
+            android:layout_height="66dp"
+            android:text="修复"
+
+            tools:ignore="MissingConstraints"
+            android:background="#FFA340"
+            android:layout_margin="18dp"
+            android:textColor="#fff"/>
+
+        <Button
+            android:id="@+id/button8"
+            android:layout_width="270dp"
+            android:layout_height="66dp"
+            android:text="正畸"
+            android:layout_margin="18dp"
+            tools:ignore="MissingConstraints"
+            android:background="#FF6140"
+            android:textColor="#fff"/>
+
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>
