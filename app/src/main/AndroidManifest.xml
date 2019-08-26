@@ -26,6 +26,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".ui.activity.OldActivity"></activity>
+        <activity android:name=".ui.activity.AnsActivity" />
+        <activity android:name=".ui.activity.SocreActivity" />
+        <activity android:name=".ui.activity.ChoiceActivity" />
+        <activity android:name=".ui.activity.DoCheckActivity" />
+        <activity android:name=".ui.activity.ViewCheckActivity" />
+        <activity android:name=".ui.activity.CheckActivity" />
+        <activity android:name=".ui.activity.UserActivity" />
         <activity android:name=".ui.activity.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -36,17 +44,18 @@
         <activity android:name=".ui.activity.LoadingActivity" />
         <activity android:name=".ui.activity.Menu2Activity" />
         <activity android:name=".ui.activity.IMActivity" />
-
         <activity
             android:name=".ui.activity.MenuActivity"
             android:configChanges="orientation|keyboardHidden|navigation|screenSize"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize">
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
 
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
             <intent-filter>
                 <category android:name="android.intent.category.DEFAULT" />
 

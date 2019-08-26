@@ -24,7 +24,12 @@ import android.widget.Toast;
 import com.rance.chatui.R;
 import com.rance.chatui.base.BaseFragment;
 import com.rance.chatui.enity.MessageInfo;
+import com.rance.chatui.ui.activity.CheckActivity;
 import com.rance.chatui.ui.activity.ContactActivity;
+import com.rance.chatui.ui.activity.DoCheckActivity;
+import com.rance.chatui.ui.activity.IMActivity;
+import com.rance.chatui.ui.activity.SocreActivity;
+import com.rance.chatui.ui.activity.UserActivity;
 import com.rance.chatui.util.Constants;
 import com.rance.chatui.util.FileUtils;
 import com.rance.chatui.util.PhotoUtils;
@@ -59,6 +64,7 @@ public class ChatFunctionFragment extends BaseFragment {
     private Uri imageUri;
     private Uri cropImageUri;
     TextView tvCapture, tvAlbum, tvContact, tvCloud, tvFile, tvLocation;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -97,28 +103,46 @@ public class ChatFunctionFragment extends BaseFragment {
     }
 
     public void setItemClick() {
-        tvCapture.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                autoObtainCameraPermission();
-            }
-        });
+
         tvAlbum.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (ContextCompat.checkSelfPermission(getActivity(),
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                        != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(getActivity(),
-                            new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                            MY_PERMISSIONS_REQUEST_WRITE_STORAGE_CODE);
+//                if (ContextCompat.checkSelfPermission(getActivity(),
+//                        Manifest.permission.WRITE_EXTERNAL_STORAGE)
+//                        != PackageManager.PERMISSION_GRANTED) {
+//                    ActivityCompat.requestPermissions(getActivity(),
+//                            new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+//                            MY_PERMISSIONS_REQUEST_WRITE_STORAGE_CODE);
+//
+//                } else {
+//                    choosePhoto();
+//                }
 
-                } else {
-                    choosePhoto();
-                }
+                Intent intent = new Intent(getActivity(), CheckActivity.class);
+                startActivity(intent);
             }
         });
 
+        tvCapture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                autoObtainCameraPermission();
+                Intent intent = new Intent(getActivity(), DoCheckActivity.class);
+                startActivity(intent);
+                getActivity().finish();
+            }
+        });
+
+        tvContact.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                showContact();
+                Intent intent = new Intent(getActivity(), SocreActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        
         tvFile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -148,12 +172,7 @@ public class ChatFunctionFragment extends BaseFragment {
             }
         });
 
-        tvContact.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showContact();
-            }
-        });
+
     }
 
     private void showContact() {

@@ -1,57 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
     tools:context=".ui.activity.MenuActivity">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="#ffd300"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:gravity="center"
+            android:text="初牙"
+            android:textColor="#fff"
+            android:textSize="30dp"
+            android:textStyle="bold" />
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:gravity="center">
+        android:gravity="center"
+        android:orientation="vertical">
+
+
         <Button
             android:id="@+id/button"
             android:layout_width="270dp"
             android:layout_height="66dp"
-            android:text="练习模式"
-            tools:ignore="MissingConstraints"
+            android:layout_margin="18dp"
             android:background="#64AAD0"
+            android:text="练习模式"
             android:textColor="#fff"
-            android:layout_margin="18dp"/>
+            tools:ignore="MissingConstraints" />
 
         <Button
             android:id="@+id/button2"
             android:layout_width="270dp"
             android:layout_height="66dp"
-            android:text="考试模式"
-            tools:ignore="MissingConstraints"
-            android:background="#238b49"
             android:layout_margin="18dp"
-            android:textColor="#fff"/>
+            android:background="#238b49"
+            android:text="考试模式"
+            android:textColor="#fff"
+            tools:ignore="MissingConstraints" />
 
         <Button
             android:id="@+id/button3"
             android:layout_width="270dp"
             android:layout_height="66dp"
-            android:text="学习交流"
-
-            tools:ignore="MissingConstraints"
-            android:background="#FFA340"
             android:layout_margin="18dp"
-            android:textColor="#fff"/>
+
+            android:background="#FFA340"
+            android:text="学习交流"
+            android:textColor="#fff"
+            tools:ignore="MissingConstraints" />
 
         <Button
             android:id="@+id/button4"
             android:layout_width="270dp"
             android:layout_height="66dp"
-            android:text="我的收藏"
             android:layout_margin="18dp"
-            tools:ignore="MissingConstraints"
             android:background="#FF6140"
-            android:textColor="#fff"/>
+            android:text="我的收藏"
+            android:textColor="#fff"
+            tools:ignore="MissingConstraints" />
 
     </LinearLayout>
-</android.support.constraint.ConstraintLayout>
+</LinearLayout>

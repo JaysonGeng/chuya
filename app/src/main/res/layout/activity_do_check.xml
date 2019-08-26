@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context=".ui.activity.DoCheckActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="vertical"
+        android:background="#ffd300">
+
+        <Button
+            android:id="@+id/button1_do_check"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:text="＜ 返回"
+
+            android:textColor="#fff"
+            android:textSize="30dp"
+            android:textStyle="bold"
+            android:layout_margin="8dp"
+            android:gravity="left"
+            android:background="@null"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_margin="30dp">
+        <TextView
+            android:id="@+id/textView1_do_check"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="诊断为:"
+            android:textSize="20dp"/>
+
+        <EditText
+            android:id="@+id/editText2_do_check"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:text="诊断为" />
+
+        <TextView
+            android:id="@+id/textView3_do_check"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="诊断为:"
+            android:textSize="20dp"
+            android:layout_marginTop="50dp"/>
+
+        <EditText
+            android:id="@+id/editText4_do_check"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:text="诊断为" />
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="30dp">
+
+            <Button
+                android:id="@+id/button23"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#ffd300"
+                android:text="确定"
+                android:layout_marginRight="30dp"/>
+
+            <Button
+                android:id="@+id/button24"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#ffd300"
+                android:text="取消" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+
+</LinearLayout>

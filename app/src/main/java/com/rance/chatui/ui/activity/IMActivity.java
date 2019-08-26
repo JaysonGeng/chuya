@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -61,6 +62,7 @@ public class IMActivity extends AppCompatActivity {
     StateButton emotionSend;
     NoScrollViewPager viewpager;
     RelativeLayout emotionLayout;
+    Button textView2 ;
 
     private EmotionInputDetector mDetector;
     private ArrayList<Fragment> fragments;
@@ -85,6 +87,18 @@ public class IMActivity extends AppCompatActivity {
         EventBus.getDefault().register(this);
         initWidget();
         handleIncomeAction();
+
+        textView2.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(IMActivity.this, UserActivity.class);
+                startActivity(intent);
+
+            }
+
+        });
     }
 
     private void findViewByIds() {
@@ -97,6 +111,7 @@ public class IMActivity extends AppCompatActivity {
         emotionSend = (StateButton) findViewById(R.id.emotion_send);
         emotionLayout = (RelativeLayout) findViewById(R.id.emotion_layout);
         viewpager = (NoScrollViewPager) findViewById(R.id.viewpager);
+        textView2 = (Button) findViewById(R.id.textView2);
     }
 
     private void handleIncomeAction() {
@@ -288,35 +303,18 @@ public class IMActivity extends AppCompatActivity {
         messageInfos = new ArrayList<>();
 
         MessageInfo messageInfo = new MessageInfo();
-        messageInfo.setContent("你好，欢迎使用Rance的聊天界面框架");
+        messageInfo.setContent("开始诊断，点击上方标题可查看病人信息");
         messageInfo.setFileType(Constants.CHAT_FILE_TYPE_TEXT);
         messageInfo.setType(Constants.CHAT_ITEM_TYPE_LEFT);
         messageInfo.setHeader("http://img0.imgtn.bdimg.com/it/u=401967138,750679164&fm=26&gp=0.jpg");
         messageInfos.add(messageInfo);
 
-        MessageInfo messageInfo1 = new MessageInfo();
-        messageInfo1.setFilepath("http://www.trueme.net/bb_midi/welcome.wav");
-        messageInfo1.setVoiceTime(3000);
-        messageInfo1.setFileType(Constants.CHAT_FILE_TYPE_VOICE);
-        messageInfo1.setType(Constants.CHAT_ITEM_TYPE_RIGHT);
-        messageInfo1.setSendState(Constants.CHAT_ITEM_SEND_SUCCESS);
-        messageInfo1.setHeader("http://img.dongqiudi.com/uploads/avatar/2014/10/20/8MCTb0WBFG_thumb_1413805282863.jpg");
-        messageInfos.add(messageInfo1);
-
         MessageInfo messageInfo2 = new MessageInfo();
-        messageInfo2.setFilepath("http://img4.imgtn.bdimg.com/it/u=1800788429,176707229&fm=21&gp=0.jpg");
-        messageInfo2.setFileType(Constants.CHAT_FILE_TYPE_IMAGE);
+        messageInfo2.setContent(" 大夫，我这几天不舒服");
+        messageInfo2.setFileType(Constants.CHAT_FILE_TYPE_TEXT);
         messageInfo2.setType(Constants.CHAT_ITEM_TYPE_LEFT);
         messageInfo2.setHeader("http://img0.imgtn.bdimg.com/it/u=401967138,750679164&fm=26&gp=0.jpg");
         messageInfos.add(messageInfo2);
-
-        MessageInfo messageInfo3 = new MessageInfo();
-        messageInfo3.setContent("[微笑][色][色][色]");
-        messageInfo3.setFileType(Constants.CHAT_FILE_TYPE_TEXT);
-        messageInfo3.setType(Constants.CHAT_ITEM_TYPE_RIGHT);
-        messageInfo3.setSendState(Constants.CHAT_ITEM_SEND_ERROR);
-        messageInfo3.setHeader("http://img.dongqiudi.com/uploads/avatar/2014/10/20/8MCTb0WBFG_thumb_1413805282863.jpg");
-        messageInfos.add(messageInfo3);
 
         chatAdapter.addAll(messageInfos);
     }
@@ -335,7 +333,10 @@ public class IMActivity extends AppCompatActivity {
                 messageInfo.setSendState(Constants.CHAT_ITEM_SEND_SUCCESS);
                 chatAdapter.notifyDataSetChanged();
             }
-        }, 2000);
+        }, 1200);
+
+
+
         new Handler().postDelayed(new Runnable() {
             public void run() {
                 MessageInfo message = new MessageInfo();
@@ -347,7 +348,7 @@ public class IMActivity extends AppCompatActivity {
                 chatAdapter.notifyItemInserted(messageInfos.size() - 1);
                 chatList.scrollToPosition(chatAdapter.getItemCount() - 1);
             }
-        }, 3000);
+        }, 2000);
     }
 
     @Override
