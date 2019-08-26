@@ -24,7 +24,6 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
     //noinspection GradleCompatible
     implementation 'com.android.support:appcompat-v7:24.2.1'
     implementation 'com.android.support:design:24.2.1'
@@ -35,4 +34,8 @@ dependencies {
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
 
     testImplementation 'junit:junit:4.12'
+    implementation files('libs\\BaiduLBS_Android.jar')
+    implementation files('libs\\aip-java-sdk-4.9.0.jar')
+    implementation files('libs\\json-20160810.jar')
+    implementation files('libs\\log4j-1.2.17.jar')
 }

@@ -129,7 +129,7 @@ public class ChatFunctionFragment extends BaseFragment {
 //                autoObtainCameraPermission();
                 Intent intent = new Intent(getActivity(), DoCheckActivity.class);
                 startActivity(intent);
-                getActivity().finish();
+
             }
         });
 
@@ -139,6 +139,7 @@ public class ChatFunctionFragment extends BaseFragment {
 //                showContact();
                 Intent intent = new Intent(getActivity(), SocreActivity.class);
                 startActivity(intent);
+                getActivity().finish();
             }
         });
 

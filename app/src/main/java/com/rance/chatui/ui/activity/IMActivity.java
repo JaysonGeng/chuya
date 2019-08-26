@@ -12,14 +12,15 @@ import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.baidu.aip.nlp.AipNlp;
 import com.labo.kaji.relativepopupwindow.RelativePopupWindow;
 import com.rance.chatui.R;
 import com.rance.chatui.adapter.ChatAdapter;
@@ -41,10 +42,17 @@ import com.rance.chatui.widget.StateButton;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.json.JSONException;
+import org.json.JSONObject;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
 
 
 /**
@@ -62,8 +70,7 @@ public class IMActivity extends AppCompatActivity {
     StateButton emotionSend;
     NoScrollViewPager viewpager;
     RelativeLayout emotionLayout;
-    Button textView2 ;
-
+    private CountDownLatch mCountDownLatch;
     private EmotionInputDetector mDetector;
     private ArrayList<Fragment> fragments;
     private ChatEmotionFragment chatEmotionFragment;
@@ -83,22 +90,11 @@ public class IMActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mCountDownLatch = new CountDownLatch(1);
         findViewByIds();
         EventBus.getDefault().register(this);
         initWidget();
         handleIncomeAction();
-
-        textView2.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-
-                Intent intent = new Intent(IMActivity.this, UserActivity.class);
-                startActivity(intent);
-
-            }
-
-        });
     }
 
     private void findViewByIds() {
@@ -111,7 +107,6 @@ public class IMActivity extends AppCompatActivity {
         emotionSend = (StateButton) findViewById(R.id.emotion_send);
         emotionLayout = (RelativeLayout) findViewById(R.id.emotion_layout);
         viewpager = (NoScrollViewPager) findViewById(R.id.viewpager);
-        textView2 = (Button) findViewById(R.id.textView2);
     }
 
     private void handleIncomeAction() {
@@ -303,18 +298,12 @@ public class IMActivity extends AppCompatActivity {
         messageInfos = new ArrayList<>();
 
         MessageInfo messageInfo = new MessageInfo();
-        messageInfo.setContent("开始诊断，点击上方标题可查看病人信息");
+        messageInfo.setContent("大夫，我这几天不舒服");
         messageInfo.setFileType(Constants.CHAT_FILE_TYPE_TEXT);
         messageInfo.setType(Constants.CHAT_ITEM_TYPE_LEFT);
         messageInfo.setHeader("http://img0.imgtn.bdimg.com/it/u=401967138,750679164&fm=26&gp=0.jpg");
         messageInfos.add(messageInfo);
 
-        MessageInfo messageInfo2 = new MessageInfo();
-        messageInfo2.setContent(" 大夫，我这几天不舒服");
-        messageInfo2.setFileType(Constants.CHAT_FILE_TYPE_TEXT);
-        messageInfo2.setType(Constants.CHAT_ITEM_TYPE_LEFT);
-        messageInfo2.setHeader("http://img0.imgtn.bdimg.com/it/u=401967138,750679164&fm=26&gp=0.jpg");
-        messageInfos.add(messageInfo2);
 
         chatAdapter.addAll(messageInfos);
     }
@@ -333,14 +322,84 @@ public class IMActivity extends AppCompatActivity {
                 messageInfo.setSendState(Constants.CHAT_ITEM_SEND_SUCCESS);
                 chatAdapter.notifyDataSetChanged();
             }
-        }, 1200);
+        }, 2000);
+
+        final String[] finalResultAns = new String[1];
+        new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                mCountDownLatch.countDown();
 
 
+
+                String APP_ID = "17083367";
+                String API_KEY = "eEQdjXlUFsfaseiRZpgtsOwz";
+                String SECRET_KEY = "jp4aIL8AjqqiYmEaRmLtWH6SQFMjiYsf";
+
+                // 初始化一个AipNlp
+                AipNlp client = new AipNlp(APP_ID, API_KEY, SECRET_KEY);
+
+                String text1;
+                String text2;
+                String resultAns = "";
+                Double result = 0.0;
+                // 传入可选参数调用接口
+                HashMap<String, Object> options = new HashMap<String, Object>();
+                options.put("model", "CNN");
+
+                try {
+
+                    InputStream context = getClass().getClassLoader().getResourceAsStream("assets/dialog.txt");
+                    BufferedReader br = new BufferedReader(new InputStreamReader(context));
+                    String ss;
+
+                    int count = 0;
+                    while ((ss = br.readLine()) != null) {
+
+                        if (ss.startsWith("D:")) {
+
+                            Thread.sleep(400);
+
+
+                            Log.d(TAG, "MessageEventBus: " + ss);
+                            text1 = ss.substring(2);
+                            text2 = messageInfo.getContent();
+                            JSONObject res = client.simnet(text1, text2, options);
+
+                            try {
+                                Log.d(TAG, "----------------------------------: " + res.toString());
+                                Double resultTemp = res.getDouble("score");
+
+                                if (resultTemp > result) {
+                                    result = resultTemp;
+
+                                    resultAns = br.readLine().substring(2);
+
+                                    Log.d(TAG, "MessageEventBus: resultAns " + result + resultAns);
+                                }
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                            System.out.println(resultAns);
+
+                        }
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                finalResultAns[0] = resultAns;
+            }
+        }).start();
 
         new Handler().postDelayed(new Runnable() {
             public void run() {
+
                 MessageInfo message = new MessageInfo();
-                message.setContent("这是模拟消息回复");
+                message.setContent(finalResultAns[0]);
                 message.setType(Constants.CHAT_ITEM_TYPE_LEFT);
                 message.setFileType(Constants.CHAT_FILE_TYPE_TEXT);
                 message.setHeader("http://img0.imgtn.bdimg.com/it/u=401967138,750679164&fm=26&gp=0.jpg");
@@ -348,7 +407,7 @@ public class IMActivity extends AppCompatActivity {
                 chatAdapter.notifyItemInserted(messageInfos.size() - 1);
                 chatList.scrollToPosition(chatAdapter.getItemCount() - 1);
             }
-        }, 2000);
+        }, 7000);
     }
 
     @Override
